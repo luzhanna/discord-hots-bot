@@ -26,4 +26,11 @@ jobs:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USER }}
         key: ${{ secrets.SSH_KEY }}
-        script: whoami
+        script: |
+          if [ ! -d "discord-hots-bot" ]; then
+              git clone https://github.com/luzhanna/discord-hots-bot.git
+          fi
+
+          cd discord-hots-bot
+          kill bot.py
+          python3 bot.py &
