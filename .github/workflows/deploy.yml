@@ -34,6 +34,13 @@ jobs:
 
           cd discord-hots-bot
           git pull
+
+          if [ ! -d "venv" ]; then
+            python3 -m venv venv
+          fi
+
+          . ./venv/bin/activate
+
           pip3 install -f requiremnets.txt
           killall bot.py
           python3 bot.py &
