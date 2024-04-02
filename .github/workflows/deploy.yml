@@ -27,6 +27,7 @@ jobs:
         username: ${{ secrets.SSH_USER }}
         key: ${{ secrets.SSH_KEY }}
         script: |
+          set -x -e
           if [ ! -d "discord-hots-bot" ]; then
               git clone https://github.com/luzhanna/discord-hots-bot.git
           fi
