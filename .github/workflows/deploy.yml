@@ -39,7 +39,7 @@ jobs:
             python3 -m venv venv
           fi
 
-          . ./venv/bin/activate
+          source ./venv/bin/activate
 
           pip3 install -f requiremnets.txt
           killall bot.py
