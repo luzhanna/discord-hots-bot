@@ -1,0 +1,46 @@
+name: Pylint
+
+on: [push]
+
+jobs:
+  lint:
+    name: 'Lint'
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.10' 
+    - name: Install dependencies
+      run: |
+        pip install pylint
+    - name: Analysing the code with pylint
+      run: |
+        pylint $(git ls-files '*.py')
+  jobs:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+    - uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USER }}
+        key: ${{ secrets.SSH_KEY }}
+        script: |
+          set -x -e
+          if [ ! -d "discord-hots-bot" ]; then
+              git clone https://github.com/luzhanna/discord-hots-bot.git
+          fi
+
+          cd discord-hots-bot
+          git pull
+
+          if [ ! -d "venv" ]; then
+            python3 -m venv venv
+          fi
+
+          source ./venv/bin/activate
+
+          pip3 install -r requirements.txt
+          killall bot.py
+          python3 bot.py &
