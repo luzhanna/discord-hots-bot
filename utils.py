@@ -32,9 +32,10 @@ def take_hero(hero_name, lst):
 	name = ''.join([i for i in name if i.isalpha()])
 
 	for hero in lst:
-		if name.startswith(hero['alts']):
+		
+		if hero['name'].startswith(name[:5]):
 			return hero
-		elif hero['name'].startswith(name[:4]):
+		elif name.startswith(hero['alts']):
 			return hero
 
 	return ValueError
