@@ -26,19 +26,25 @@ bot = commands.Bot(intents=intents, command_prefix='!')
 async def on_ready():
 	print(f'Logged in as {bot.user.name}  ({bot.user.id})')
 
-@bot.command()
-async def hero(ctx, brief='random hero with random build', descrintion=hero_desc):
-	output = random_hero(data)
-	await ctx.send(output)
+# @bot.command()
+# async def hero(ctx, brief='random hero with random build', descrintion=hero_desc):
+# 	output = random_hero(data)
+# 	await ctx.send(output)
 
 @bot.command()
-async def build(ctx, arg, brief='build for specific hero', descrintion=build_desc):
-	output = hero_build(arg, data)
+async def build(ctx, arg='', brief='build for specific hero', descrintion=build_desc):
+	try: 
+		output = roled_hero(arg, data)
+	except:
+		try:
+			output = hero_build(arg, data)
+		except:
+			output = random_hero(data)
 	await ctx.send(output)
 
-@bot.command()
-async def role(ctx, arg, brief='random hero+build of specific role', descrintion=role_desc):
-	output = roled_hero(arg, data)
-	await ctx.send(output)
+# @bot.command()
+# async def role(ctx, arg, brief='random hero+build of specific role', descrintion=role_desc):
+# 	output = roled_hero(arg, data)
+# 	await ctx.send(output)
 
 bot.run(MY_TOKEN)	
