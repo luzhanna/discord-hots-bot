@@ -32,7 +32,7 @@ async def on_ready():
 # 	await ctx.send(output)
 
 @bot.command()
-async def build(ctx, arg='', brief='build for specific hero', descrintion=build_desc):
+async def build(ctx, arg=None, brief='no arguments == random hero handom build', descrintion=build_desc):
 	try: 
 		output = roled_hero(arg, data)
 	except:
